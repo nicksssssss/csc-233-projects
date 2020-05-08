@@ -12,7 +12,9 @@ class Course
         float contactHours;
     
     public:
-        Course(int, std::string, int, float);
-        void show();
+        Course();
+        Course(int courseId, std::string title, int roomNumber, float contactHours);
+        virtual void setInfo();
+        virtual void show();
 };
 #endif
