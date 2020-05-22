@@ -31,7 +31,7 @@ Game::Game(int xBound, int yBound)
 
 int Game::turn()
 {
-    //printGame();
+    printGame();
     std::cout << "here again"  << this->board.getXBound() << std::endl;
     std::cout << "Player x&y " << (player).getX() << " " << (player).getY() << std::flush;
     int gameStatus = 0;
