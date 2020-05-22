@@ -3,6 +3,7 @@
 
 #include "Board.h"
 #include "Player.h"
+#include "SuperBadGuy.h"
 
 class Game
 {
@@ -12,11 +13,12 @@ class Game
         Game(int);
         Game(int, int);
 
-        void turn();
+        int turn();
         int checkForCollision();
-        void makeBoard(Board);
-        void printBoard();
+        void makeBoard();
+        void printGame();
     private:
+        std::vector<SuperBadGuy> dudes;
         Board board;
         Player player;
 };

@@ -13,7 +13,7 @@ class Board {
         std::vector <std::vector <Space>> getBoardInfo();
         int getXBound();
         int getYBound();        
-        Space getSpace(int, int);
+        Space getSpace(int, int);        
 
     private:
         std::vector <std::vector <Space>> spaces;

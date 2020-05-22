@@ -8,28 +8,29 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 
 Game::Game()
 {
-    board = Board(10,10);
-    player = Player(10,10);
+    Game(10);
 }
 
 Game::Game(int bound)
 {
-    board = Board(bound, bound);
-    player = Player(bound, bound);
+    Game(bound, bound);
 }
 
 Game::Game(int xBound, int yBound)
 {
     board = Board(xBound, yBound);
+    makeBoard();
     player = Player(xBound, yBound);
 }
 
-void Game::turn()
+int Game::turn()
 {
+    printGame();
     std::vector <std::vector <Space>> spaces = board.getBoardInfo();
     int gameStatus = 0;
 
@@ -37,7 +38,15 @@ void Game::turn()
     gameStatus = checkForCollision();
     if(gameStatus == 0)
     {
-        //SuperBadGuy.move();
+        for (auto dude: dudes) {
+            dude.move(board);
+        }
+    }
+    else if(gameStatus == 1) {
+        std::cout << "YOU WON" << std::endl;
+    }
+    else if(gameStatus == 2){
+        std::cout << "YOU LOST" << std::endl;
     }
     
 }
@@ -65,19 +74,18 @@ int Game::checkForCollision()
     }
 }
 
-void Game::makeBoard(Board board)
+void Game::makeBoard()
 {
     int xBound = board.getXBound();
     int yBound = board.getYBound();
     int determineEntity;
     srand(time(NULL));
 
-    Entity* dude;
-
     for(int i = 0; i < yBound; i++)
     {
         for(int j = 0; j < xBound; j++)
         {
+            Entity* dude;
             if((i+1) != yBound && (j+1) != xBound)
             {
                 determineEntity = (rand() % 100) + 1;
@@ -91,13 +99,32 @@ void Game::makeBoard(Board board)
                 else if(determineEntity > 10 && determineEntity <= 20)
                 {
                     dude = new SuperBadGuy(j, i, board.getXBound(), board.getYBound());
+                    dudes.push_back(*dynamic_cast<SuperBadGuy*>(dude));
                 }
             }
             else
             {
                 dude = new Goal();
-            }
+            }            
             board.getSpace(i,j).setEntity(dude);
         }
+    }
+}
+
+void Game::printGame() {    
+    for (int i = 0; i < board.getXBound(); i++) {
+        for (int j = 0; j < board.getYBound(); j++) {
+            if (i == player.getX() && j == player.getY()) {
+                std::cout << "P";
+            } else {
+                if(board.getSpace(i,j).isEmpty()) {
+                    std::cout << ".";
+                } else {
+                    std::cout << (*board.getSpace(i,j).getEntity()).getIcon();
+                }
+            }
+            std::cout << " ";
+        }
+        std::cout << std::endl;
     }
 }

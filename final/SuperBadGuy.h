@@ -11,8 +11,7 @@ class SuperBadGuy: public BadGuy
     public:
         //Constructors
         SuperBadGuy(int,int,int,int);
-
-        void move(Board, std::vector<SuperBadGuy>);
+        void move(Board);
         char getIcon();
         
     private:
