@@ -13,7 +13,7 @@ class Player
         Player();
         Player(int, int);
 
-        void move(std::vector <std::vector <Space>>);
+        void move();
         int getX();
         int getY();
 

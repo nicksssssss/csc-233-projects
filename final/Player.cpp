@@ -4,18 +4,22 @@
 #include <iostream>
 
 //Constructors
-Player::Player(){}
+Player::Player(){
+    this->xPos = 0;
+    this->yPos = 0;
+}
 
 Player::Player(int x, int y)
 {
-    xPos = 0;
-    yPos = 0;
+    std::cout << "player at make: " << x << " " << y << std::flush <<std::endl;
+    this->xPos = 0;
+    this->yPos = 0;
     xBound = x;
     yBound = y;
 }
 
 
-void Player::move(std::vector <std::vector <Space>> spaces)
+void Player::move()
 {
     char input = 'o';
     bool validSpace = false;
@@ -25,22 +29,22 @@ void Player::move(std::vector <std::vector <Space>> spaces)
         //check position is within the boards bounds
         if(input == 'w')
         {
-            validSpace == (!(yPos == 0));
+            validSpace = (yPos != 0);
         }
-        if(input == 'a')
+        else if(input == 'a')
         {
-            validSpace = (!(xPos == 0));
+            validSpace = (xPos != 0);
         }
-        if(input == 's')
+        else if(input == 's')
         {
-            validSpace = (!(yPos < yBound));
+            validSpace = (yPos < yBound - 1);
         }
-        if(input == 'd')
+        else if(input == 'd')
         {
-            validSpace = (!(xPos < xBound));
+            validSpace = (xPos < xBound - 1);
         }
         if (!validSpace) {
-            std::cout << "\nInvalid space. Try Again...\n";
+            std::cout << xBound << yBound << "\nInvalid space. Try Again...\n";
         }
     }
     //move player

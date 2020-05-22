@@ -9,8 +9,6 @@ class Board {
         //constructor
         Board();
         Board(int, int);
-
-        std::vector <std::vector <Space>> getBoardInfo();
         int getXBound();
         int getYBound();        
         Space getSpace(int, int);        

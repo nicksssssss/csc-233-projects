@@ -4,7 +4,7 @@
 using namespace std;
 int main()
 {
-    std::cout << "starting Game";
+    std::cout << "starting Game" << std::endl << std::flush;
     Game game = Game();
     int gameStatus = 0;
     while(gameStatus == 0) {

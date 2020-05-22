@@ -23,18 +23,20 @@ Game::Game(int bound)
 
 Game::Game(int xBound, int yBound)
 {
-    board = Board(xBound, yBound);
+    this->board = Board(xBound, yBound);
     makeBoard();
     player = Player(xBound, yBound);
+    std::cout << "here"  << this->board.getXBound() << std::endl;
 }
 
 int Game::turn()
 {
-    printGame();
-    std::vector <std::vector <Space>> spaces = board.getBoardInfo();
+    //printGame();
+    std::cout << "here again"  << this->board.getXBound() << std::endl;
+    std::cout << "Player x&y " << (player).getX() << " " << (player).getY() << std::flush;
     int gameStatus = 0;
 
-    player.move(spaces);
+    player.move();
     gameStatus = checkForCollision();
     if(gameStatus == 0)
     {
@@ -61,11 +63,10 @@ int Game::checkForCollision()
         2:Runs into a BadGuy or SuperBadGuy(Lose)
     */
     Entity* landedOnEntity;
-    std::vector <std::vector <Space>> spaces = board.getBoardInfo();
     //check the spot for other entities
-    if(!(spaces[player.getX()][player.getY()].isEmpty()))//if space is not empty
+    if(!board.getSpace(player.getX(), player.getY()).isEmpty())//if space is not empty
     {
-        landedOnEntity = spaces[player.getX()][player.getY()].getEntity();
+        landedOnEntity = board.getSpace(player.getX(), player.getY()).getEntity();
         return (*landedOnEntity).onCollision(); //1 from goal, 2 from BadGuy or SuperBadGuy
     }
     else
@@ -112,6 +113,7 @@ void Game::makeBoard()
 }
 
 void Game::printGame() {    
+    std::cout << "printing board";
     for (int i = 0; i < board.getXBound(); i++) {
         for (int j = 0; j < board.getYBound(); j++) {
             if (i == player.getX() && j == player.getY()) {
